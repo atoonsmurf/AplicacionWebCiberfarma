@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Semana11_reporte_grafico1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5393a9da-8499-4282-81a4-76f36867915a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion-T5AM-ciberfarma"/>
+	<queryString language="SQL">
+		<![CDATA[select c.descripcion as categoria, count(*) as productos,
+sum(stk_prod) as total_art, max(stk_prod) as mayor_stock,
+min(stk_prod) as menor_stock  
+from tb_productos p join tb_categorias c on p.idcategoria = c.idcategoria
+group by c.descripcion]]>
+	</queryString>
+	<field name="categoria" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="categoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_categorias"/>
+	</field>
+	<field name="productos" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="productos"/>
+		<property name="com.jaspersoft.studio.field.label" value="productos"/>
+	</field>
+	<field name="total_art" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_art"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_art"/>
+	</field>
+	<field name="mayor_stock" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="mayor_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="mayor_stock"/>
+	</field>
+	<field name="menor_stock" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="menor_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="menor_stock"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="73" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="121" height="31" uuid="147d9d20-0bb3-4190-ae61-7b1d3fc976b7"/>
+				<imageExpression><![CDATA["logociberfarma.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="187" y="5" width="193" height="30" uuid="a77eb0b8-c744-4e5f-b5a1-859e6d176eae"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de productos por categoria]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="20" y="43" width="100" height="30" uuid="0f45ff72-4fc9-4843-a3ab-af23b593720a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="43" width="100" height="30" uuid="099d88b2-b060-4ce5-8add-16d3cdea8327"/>
+				<textFieldExpression><![CDATA["Pág"+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="802" splitType="Stretch">
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="40" width="280" height="200" uuid="3f6c8096-0860-49b3-8bf7-ef29aa3bc3ff"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{categoria}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total_art}]]></valueExpression>
+					<labelExpression><![CDATA[$F{total_art}.toString()]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="10" y="0" width="270" height="40" uuid="96e919f4-0195-44b4-99b9-19fdf1385e21"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de artículos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="290" height="40" uuid="7a383735-2469-438e-87af-d39ac067afec"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Menor y Mayor stock]]></text>
+			</staticText>
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="300" y="30" width="260" height="200" uuid="4b1d0571-6090-48d7-8aae-e56769da3118"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["Mayor"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{mayor_stock}]]></valueExpression>
+						<labelExpression><![CDATA[$F{mayor_stock}.toString()]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Menor"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{menor_stock}]]></valueExpression>
+						<labelExpression><![CDATA[$F{menor_stock}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<barChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="340" width="545" height="220" uuid="4e89a891-da12-4225-8d87-45f4ec8d9c92"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["productos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{productos}]]></valueExpression>
+						<labelExpression><![CDATA[$F{productos}.toString()]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["total"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total_art}]]></valueExpression>
+						<labelExpression><![CDATA[$F{total_art}.toString()]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Mayor"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{mayor_stock}]]></valueExpression>
+						<labelExpression><![CDATA[$F{mayor_stock}.toString()]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Menor"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{menor_stock}]]></valueExpression>
+						<labelExpression><![CDATA[$F{menor_stock}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="180" y="300" width="180" height="30" uuid="acf020b3-854d-48ae-a55d-a921c9a0d32c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Principales indicadores]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

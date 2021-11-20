@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"> 	<!-- JSTL/ CustomTag-->
+
+<head th:fragment="head"> 
+
+  <title>Getting Started: Serving Web Content</title> 
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+</head>
+
+<body>
+<div id="contenedor">
+		<header th:fragment="header">
+			<img alt="logo" th:src="@{/img/logociberfarma.png}" width="200" height="50">
+			<p>Ud se ha identificado como : <strong></strong></p>
+		</header>
+			
+		<main>
+			<nav style="width: 25%;float: left;"th:fragment="nav">
+				<ul>
+					<li><a href="index.html">Inicio</a></li>
+					<li><a href="#">Actualiza datos</a></li>				
+					<li><a href="/cargar">Mantenimiento de productos</a></li>
+					<li><a href="#">CatÃ¡logo de productos</a></li>
+					<li><a href="#">Cerrar sesiÃ³n</a></li>
+				</ul>
+			</nav>
+			<section style="width: 65%;float: left;">
+				<h1>Bienvenidos</h1>
+			</section>
+		</main>
+		<footer th:fragment="footer">
+		 <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		</footer>
+	</div>
+
+	
+</body>
+
+</html>

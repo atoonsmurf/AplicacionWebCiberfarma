@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"> 	<!-- JSTL/ CustomTag-->
+
+<head th:replace="principal::head">
+ 
+</head>
+
+<body>
+
+	<div id="contenedor">
+		<header th:replace="principal::header">
+		</header>
+		<main>	
+		<nav th:replace="principal::nav">
+		</nav>	
+		<section style="width:65%; float: left;">
+		<!--Cuerpo -->
+		
+		<h1>Mantenimiento de productos</h1>
+	<form action="/grabar" method="post" th:object="${producto}">
+		  <div class="form-row">
+		    <div class="form-group col-md-12">
+		      <label >Codigo del producto</label>
+		      <input  th:field="*{codigo}" class="form-control" placeholder="Ingrese código">
+		    </div>
+		    <div class="form-group col-md-12">
+		      <label >Descripcion</label>
+		      <input th:field="*{descripcion}" class="form-control" placeholder="Ingrese nombre o descripcion">
+		    </div>
+		  </div>
+		  <div class="form-row">
+		  <div class="form-group col-md-6">
+		    <label >Stock</label>
+		    <input th:field="*{stock}" type="number"  min="1"
+		    class="form-control" placeholder="0">
+		  </div>
+		  <div class="form-group col-md-6">
+		    <label >Precio</label>
+		    <input th:field="*{precio}" step="0.01" class="form-control" type="number"  placeholder="0.0">
+		  </div>
+		  </div>
+		  <div class="form-row">
+		    <div class="form-group col-md-4">
+		      <label >Categoria</label>
+		     <select th:field="*{idcategoria}" class="form-control">
+		        <option th:value="-1" th:text="Seleccione"></option>
+		        <option th:each="c : ${lstCategorias}" 
+		        th:value="${c.idcategoria}" th:text="${c.descripcion}"></option> 	           
+		      </select>
+		    </div>
+		    <div class="form-group col-md-4">
+		      <label >Estado</label>
+		      <select class="form-control" th:field="*{estado}">
+		        <option th:value="-1" th:text="Seleccione" selected></option>
+		        <option th:value="1" th:text="Activo" ></option>
+		        <option th:value="2" th:text="No_disponible" ></option>
+		      </select>
+		    </div>
+		    <div class="form-group col-md-4">
+		      <label >Proveedor</label>
+		      <select th:field="*{idproveedor}"class="form-control">
+		        <option th:value="-1" th:text="Seleccione"></option>
+		        <option th:each="p : ${lstProveedor}"
+		        th:value="${p.codigo}" th:text="${p.descripcion}"></option>
+		      </select>
+		    </div>
+		  </div>
+		 
+		  <button type="submit" class="btn btn-primary">Registrar</button>
+		 <a href="/listar" class="btn btn-primary">Listar</a>
+		  <a href="/Semana11_report1" target="_BLANK" class="btn btn-primary">PDF</a>
+		   <a href="/Semana11_reporte_grafico1" target="_BLANK" class="btn btn-primary">PDF Gráfico</a>
+		
+	</form>
+		</section>
+		</main>
+		<footer th:replace="principal::footer">
+		</footer>
+	</div>
+		
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org"> 	<!-- JSTL/ CustomTag-->
+
+<head> 
+
+  <title>Getting Started: Serving Web Content</title> 
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+</head>
+
+<body>
+
+	<div style="margin-left: 20%; width: 60%;">
+		<h1>Listado de productos</h1>
+		<table class="table table-dark">
+			  <thead>
+			    <tr>	
+			      <th scope="col">Código</th>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Stock</th>
+			      <th scope="col">Precio</th>
+			      <th scope="col">Categoria</th>
+			      <th></th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="p : ${lstProductos}"> <!-- th:each -> for(Usuario u : listUsuario)-->
+			      <td><img alt="" th:src="@{${'/img/productos/'+p.codigo+'.png'}}" width="60px" height="60px"></td>
+			      <td th:text="${p.descripcion}"></td>
+			      <td th:text="${p.stock}"></td>
+			      <td th:text="${p.precio}"></td>
+			      <td th:each="c : ${lstCategorias}"
+			      th:if="${c.idcategoria}==${p.idcategoria}"
+			      th:text="${c.descripcion}"></td>
+			      <td>		   
+			      		<form  action="/editar" method="POST">
+			      			<input type="hidden" name="codigo" th:value="${p.codigo}" />
+			      			<button type="submit"  class="btn btn-info" >Editar</button>
+			      		</form>
+			      </td>
+			      
+			    </tr>
+			   
+			  </tbody>
+		</table>
+	</div>
+</body>
+
+</html>
